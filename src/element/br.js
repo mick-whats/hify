@@ -1,8 +1,15 @@
-const CE = require('../createElement')
+/* eslint-disable jsdoc/require-example */
+const CE = require('./createElement')
 
-function br (repeat) {
+/**
+ * br
+ *
+ * @param {number} repeat - repeat count
+ * @return {this}
+ */
+function br (repeat = 1) {
   const _el = new CE('br')
-  // if (typeof repeat === 'number') return _el.repeat(repeat)
+  _el.render = () => '<br>'.repeat(repeat)
   return _el
 }
 
