@@ -1,3 +1,9 @@
+/**
+ *
+ *
+ * @param {*} obj
+ * @returns
+ */
 function strfyAttributes (obj) {
   const attributes = []
   Object.entries(obj).forEach(([k, v]) => {

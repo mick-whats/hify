@@ -1,4 +1,4 @@
-const stringifyAttributes = require('stringify-attributes')
+const strfyAttributes = require('../helper/strfy-attributes')
 const simpleTags = [
   'br',
   'img',
@@ -27,7 +27,7 @@ class CreateElement {
         : [contents]
   }
   render () {
-    const attr = stringifyAttributes(this.attributes)
+    const attr = strfyAttributes(this.attributes)
     if (!isSimple(this.tag)) {
       let contents = this.contents.map(content => {
         if (content instanceof CreateElement) {
