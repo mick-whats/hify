@@ -39,6 +39,7 @@
   "license": "MIT",
   "author": "mick-whats",
   "dependencies": {
+    "args2": "^1.2.3",
     "globby": "^8.0.1",
     "marked": "^0.5.2",
     "opn": "^5.4.0",
