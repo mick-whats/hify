@@ -1,4 +1,4 @@
-const strfyAttributes = require('../helper/strfy-attributes')
+const strfyAttributes = require('./helper/strfy-attributes')
 const simpleTags = [
   'br',
   'img',

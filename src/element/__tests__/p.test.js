@@ -1,4 +1,4 @@
-const el = require('../')
+const { el } = require('../../')
 
 test('string arg ', () => {
   const res = el.p('paragraph').render()

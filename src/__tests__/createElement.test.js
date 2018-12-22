@@ -1,5 +1,5 @@
-const CreateElement = require('../createElement')
-const el = require('../')
+const { CreateElement } = require('..')
+const { el } = require('..')
 
 test('should ', () => {
   // a-tag attributes style

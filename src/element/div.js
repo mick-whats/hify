@@ -1,4 +1,4 @@
-const CE = require('./createElement')
+const CE = require('../createElement')
 
 function div (contents, attr = {}) {
   if (!Array.isArray(contents)) contents = [contents]

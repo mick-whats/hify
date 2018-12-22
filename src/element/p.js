@@ -1,4 +1,4 @@
-const CE = require('./createElement')
+const CE = require('../createElement')
 const colorAttributes = require('../helper/color-attributes')
 /**
  * p (paragraph tag)

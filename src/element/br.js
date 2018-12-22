@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-example */
-const CE = require('./createElement')
+const CE = require('../createElement')
 
 /**
  * br
