@@ -45,7 +45,6 @@ class CreateElement {
         return content
       })
       contents = contents.join('')
-
       return `<${this.tag}${attr}>${contents}</${this.tag}>`
     } else {
       return `<${this.tag}${attr}>`
