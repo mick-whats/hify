@@ -15,6 +15,14 @@ test('should ', () => {
     '<div><h1><a href="link.url" style="color:red;">link.text</a></h1>' +
       '<br><br><br><a href="link2.url">link2</a></div>'
   )
-  // console.log('div: ', div)
-  // console.log('div: ', div.render())
+})
+
+test('bind function', () => {
+  const fn = cont => {
+    const _p = el.p(cont)
+    _p.attributes = { style: { color: 'red' } }
+    return _p
+  }
+  const res = fn('paragraph').render()
+  expect(res).toBe('<p style="color:red;">paragraph</p>')
 })
