@@ -31,7 +31,16 @@ class CreateElement {
     if (!isSimple(this.tag)) {
       let contents = this.contents.map(content => {
         if (content instanceof CreateElement) {
-          content = content.render()
+          try {
+            JSON.stringify(content)
+            content = content.render()
+          } catch (error) {
+            if (error.message === 'Converting circular structure to JSON') {
+              content = '!!!cyclic object value'
+            } else {
+              throw error
+            }
+          }
         }
         return content
       })

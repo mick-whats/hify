@@ -18,3 +18,15 @@ test('color attributes ', () => {
     '<p id="Myid" style="color:red;background-color:gray;">paragraph</p>'
   )
 })
+test('circular structure', () => {
+  const _p = el.p('foo')
+  _p.contents = [_p]
+  const res = _p.render()
+  expect(res).toBe('<p>!!!cyclic object value</p>')
+})
+test('not circular structure', () => {
+  const _p = el.p('foo')
+
+  const res = el.div([_p, _p]).render()
+  expect(res).toBe('<div><p>foo</p><p>foo</p></div>')
+})
