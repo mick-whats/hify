@@ -2,10 +2,13 @@ const CreateElement = require('../createElement')
 const el = require('../')
 
 test('should ', () => {
+  // a-tag attributes style
   const _style = {
     style: { color: 'red' }
   }
+  // a-tag
   const _a = el.a('link.text', 'link.url', _style)
+  // main element
   const div = el.div([
     new CreateElement('h1', {}, _a),
     el.br(3),
