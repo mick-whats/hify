@@ -1,4 +1,4 @@
-const createHead = require('../createHead')
+const createHead = require('..').CreateElement.createHead
 test('basic ', () => {
   const _head = {
     title: 'MyTitle',
@@ -26,11 +26,13 @@ test('basic ', () => {
 })
 
 test('nothing is default', () => {
-  expect(createHead().render()).toBe(
-    '<head>' +
-      '<meta charset="utf-8">' +
-      '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-      '<link rel="stylesheet" href="/style.css">' +
-      '</head>'
+  expect(createHead().render()).toMatch(
+    new RegExp(
+      '<head>' +
+        '<meta charset="utf-8">' +
+        '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+        '<link rel="stylesheet" href=".*?/github.css">' +
+        '</head>'
+    )
   )
 })
