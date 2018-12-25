@@ -15,7 +15,7 @@ test('simple attributes ', () => {
 test('color attributes ', () => {
   const res = el.p('paragraph', 'red', 'gray', { id: 'Myid' }).render()
   expect(res).toBe(
-    '<p id="Myid" style="color:red;background-color:gray;">paragraph</p>'
+    '<p style="color:red;background-color:gray;" id="Myid">paragraph</p>'
   )
 })
 test('circular structure', () => {

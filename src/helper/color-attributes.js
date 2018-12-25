@@ -1,17 +1,10 @@
-Args2 = require('args2')
-
-/**
- * colorAttributes
- *
- * @param {*} obj
- * @returns
- */
+const Args2 = require('args2')
 
 /**
  * colorAttributes
  *
  * @param {any} _args - arguments
- * @returns {Object}
+ * @returns {Object} - attributes object
  * @example
  * const fn = (...args) => {
  *   return colorAttributes(...args)
@@ -50,6 +43,9 @@ function colorAttributes (..._args) {
   if (_borerColor) {
     _style['border-color'] = _borerColor
   }
+  if (Object.keys(_style).length) {
+    attributes.style = _style
+  }
   const _class = []
   args.objs.forEach(item => {
     if (item.class) {
@@ -61,9 +57,7 @@ function colorAttributes (..._args) {
   if (_class.length) {
     attributes.class = _class
   }
-  if (Object.keys(_style).length) {
-    attributes.style = _style
-  }
+
   return attributes
 }
 

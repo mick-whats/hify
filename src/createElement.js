@@ -1,9 +1,9 @@
-const PROJECT_NAME = 'xqx'
-const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const opn = require('opn')
 const strfyAttributes = require('./helper/strfy-attributes')
+const settings = require('./settings')
+
 // const createHtml = require('./createHtml')
 const simpleTags = [
   'br',
@@ -56,10 +56,7 @@ class CreateElement {
       return `<${this.tag}${attr}>`
     }
   }
-  async writeFile (
-    savePath = path.join(os.tmpdir(), `node-${PROJECT_NAME}.html`),
-    pretty_print = true
-  ) {
+  async writeFile (savePath = settings.TMPPATH, pretty_print = true) {
     if (!path.isAbsolute(savePath)) {
       throw new Error('Please specify with absolute path')
     }
@@ -68,23 +65,25 @@ class CreateElement {
       this.tag !== 'html'
         ? CreateElement.createHtml({ body: this }).render()
         : this.render()
+    _html = '<!DOCTYPE html>' + _html
     fs.writeFileSync(savePath, _html)
     return savePath
   }
 
-  async toBrowser (
-    savePath = path.join(os.tmpdir(), `node-${PROJECT_NAME}.html`),
-    pretty_print = true
-  ) {
+  async toBrowser (savePath = settings.TMPPATH, pretty_print = true) {
     await this.writeFile(savePath, pretty_print)
     console.log('opn: ', opn)
     opn(savePath)
     return savePath
   }
   static createHtml (obj = {}) {
+    const footer = new CreateElement('footer', {}, [
+      new CreateElement('code', {}, settings.BROSYNC_CMD)
+    ])
     const html = new CreateElement('html', {}, [
       obj.head || CreateElement.createHead(),
-      obj.body || new CreateElement('body', {}, 'hello world')
+      obj.body || new CreateElement('body', {}, 'hello world'),
+      footer
     ])
     return html
   }

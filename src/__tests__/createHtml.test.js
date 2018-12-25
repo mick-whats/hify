@@ -1,7 +1,7 @@
 const createHtml = require('..').CreateElement.createHtml
 const el = require('../element')
 
-test('should ', () => {
+test.skip('should ', () => {
   const body = el.p('hello world')
   expect(body.render()).toBe('<p>hello world</p>')
   const html = createHtml({ body })

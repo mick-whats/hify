@@ -41,6 +41,7 @@
   "dependencies": {
     "args2": "^1.2.3",
     "globby": "^8.0.1",
+    "lodash.isplainobject": "^4.0.6",
     "marked": "^0.5.2",
     "opn": "^5.4.0",
     "stringify-attributes": "^1.0.0",

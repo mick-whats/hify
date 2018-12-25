@@ -1,5 +1,11 @@
+# TODO
+
+- csss,jssの作成
+
 # memo
 
+## browser-sync
+URI=/var/folders/gc/1js4q5b53fjblxs9z0fsj17h0000gn/T &&browser-sync start --server $URI --files $URI/strfy.html --startPath "/strfy.html"
 
 ```puml
 @startuml
