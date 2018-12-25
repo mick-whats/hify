@@ -1,5 +1,5 @@
 {
-  "name": "xqx",
+  "name": "hify",
   "version": "0.0.1",
   "engines": {
     "node": ">=7.6.0"
@@ -30,11 +30,11 @@
   "files": [
     "src"
   ],
-  "homepage": "https://github.com/mick-whats/xqx",
-  "bugs": "https://github.com/mick-whats/xqx/issues",
+  "homepage": "https://github.com/mick-whats/hify",
+  "bugs": "https://github.com/mick-whats/hify/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mick-whats/xqx.git"
+    "url": "https://github.com/mick-whats/hify.git"
   },
   "license": "MIT",
   "author": "mick-whats",
