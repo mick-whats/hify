@@ -16,7 +16,17 @@ test('should ', () => {
     el.br(),
     el.hr('hello', _style),
     el.img('hello', _style),
-    el.md('# my header1\n\n## my header2\n\nhello world\n\n---'),
+    el.md([
+      '```',
+      'function markdown (cont) {',
+      '  marked.setOptions({',
+      '    breaks: true',
+      '  })',
+      '  cont = Array.isArray(cont) ? cont : [cont]',
+      "  return new CE('div', {}, marked(cont.join('\\n')))",
+      '}',
+      '```'
+    ]),
     el.abbr('Node.js', 'Node.js is an open-source', 'gray')
   ])
   // expect(div.render()).toBe(
