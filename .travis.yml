@@ -4,9 +4,9 @@ env:
 
 language: node_js
 node_js:
-  - "10"
-  - "8"
-  - "6"
+  - '11'
+  - '10'
+  - '8'
 dist: trusty
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
