@@ -6,8 +6,9 @@
   },
   "description": "",
   "keywords": [
-    "template",
-    "hashids"
+    "html",
+    "htmlify",
+    "generate"
   ],
   "scripts": {
     "test": "jest",
