@@ -1,19 +1,42 @@
 const createHtml = require('..').CreateElement.createHtml
 const el = require('../element')
 
-test.skip('should ', () => {
+test('render ', () => {
   const body = el.p('hello world')
   expect(body.render()).toBe('<p>hello world</p>')
   const html = createHtml({ body })
+  expect(html.render()).toMatch(new RegExp('<html>'))
+  expect(html.render()).toMatch(
+    new RegExp('<head><title>hify</title><meta charset="utf-8">')
+  )
   expect(html.render()).toMatch(
     new RegExp(
-      '<html>' +
-        '<head><meta charset="utf-8">' +
-        '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-        '<link rel="stylesheet" href="/Users.*?/css/github.css">' +
-        '</head>' +
-        '<p>hello world</p>' +
-        '</html>'
+      '<meta name="viewport" content="width=device-width,initial-scale=1"><style>'
+    )
+  )
+  expect(html.render()).toMatch(
+    new RegExp('</style></head><body><p>hello world</p></body></html>')
+  )
+})
+test('htmlify ', async () => {
+  const body = el.p('hello world')
+  body.assets = ['test.css', 'test.js']
+  const html = createHtml({ body })
+  // console.log('html: ', html.contents[1].contents[0]._assets)
+  const res = await html.htmlify()
+  expect(res).toMatch(new RegExp('<html>'))
+  expect(res).toMatch(
+    new RegExp('<head><title>hify</title><meta charset="utf-8">')
+  )
+  expect(res).toMatch(
+    new RegExp(
+      '<meta name="viewport" content="width=device-width,initial-scale=1"><style>'
+    )
+  )
+
+  expect(res).toMatch(
+    new RegExp(
+      '</style><link rel="stylesheet" href="test.css"><script src="test.js"></script></head>'
     )
   )
 })

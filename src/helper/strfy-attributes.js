@@ -9,7 +9,7 @@ function strfyAttributes (obj) {
   Object.entries(obj).forEach(([k, v]) => {
     if (Array.isArray(v)) {
       v = v.join(' ')
-    } else if (typeof v === 'object' && !!v) {
+    } else if (!!v && typeof v === 'object') {
       v = Object.entries(v)
         .map(([ik, iv]) => {
           return `${ik}:${iv};`

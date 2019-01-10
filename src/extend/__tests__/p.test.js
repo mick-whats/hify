@@ -1,4 +1,4 @@
-const { el } = require('../../')
+const { el, ex } = require('../../')
 
 test('string arg ', () => {
   const res = el.p('paragraph').render()
@@ -13,7 +13,7 @@ test('simple attributes ', () => {
   expect(res).toBe('<p id="Myid">paragraph</p>')
 })
 test('color attributes ', () => {
-  const res = el.p('paragraph', 'red', 'gray', { id: 'Myid' }).render()
+  const res = ex.p('paragraph', 'red', 'gray', { id: 'Myid' }).render()
   expect(res).toBe(
     '<p style="color:red;background-color:gray;" id="Myid">paragraph</p>'
   )

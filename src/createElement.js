@@ -3,24 +3,10 @@ const path = require('path')
 const opn = require('opn')
 const strfyAttributes = require('./helper/strfy-attributes')
 const settings = require('./settings')
+const isSimpleTag = require('./helper/isSimpleTag')
+const _ = require('lodash-core')
 
 // const createHtml = require('./createHtml')
-const simpleTags = [
-  'br',
-  'img',
-  'hr',
-  'meta',
-  'input',
-  'embed',
-  'area',
-  'base',
-  'col',
-  'keygen',
-  'link',
-  'param',
-  'source'
-]
-const isSimple = tagName => simpleTags.includes(tagName)
 
 class CreateElement {
   constructor (tag, attr = {}, contents) {
@@ -31,14 +17,64 @@ class CreateElement {
       : contents == null
         ? []
         : [contents]
+    this._assets = []
+  }
+  get assets () {
+    return this._assets
+  }
+  set assets (arg) {
+    if (Array.isArray(arg)) {
+      this._assets.push(...arg)
+    } else {
+      this._assets.push(arg)
+    }
+  }
+  collect (nest) {
+    // const _requires = this._assets // TODO: 代入の必要ない？
+    this.contents.forEach(content => {
+      if (content instanceof CreateElement) {
+        try {
+          JSON.stringify(content)
+          if (content._assets.length) {
+            this.assets = content._assets
+          }
+          this.assets = content.collect(true)
+          // _requires.push(...content.collect(true))
+        } catch (error) {
+          if (error.message !== 'Converting circular structure to JSON') {
+            throw error
+          }
+        }
+      }
+    })
+    if (nest) {
+      return this.assets || []
+    } else {
+      this._assets = _.uniq(this.assets)
+      return this
+    }
   }
   render () {
     const attr = strfyAttributes(this.attributes)
-    if (!isSimple(this.tag)) {
+    if (
+      this.tag === 'html' &&
+      this.assets.length &&
+      this.contents[0].tag === 'head'
+    ) {
+      this.contents[0].assets = this.assets
+    }
+    if (this.tag === 'head' && this.assets.length) {
+      this.assets.forEach(_require => {
+        const asset = CreateElement.asset(_require)
+        if (asset) this.contents.push(asset)
+      })
+    }
+    if (!isSimpleTag(this.tag)) {
       let contents = this.contents.map(content => {
         if (content instanceof CreateElement) {
           try {
             JSON.stringify(content)
+            // content.assets = this.assets
             content = content.render()
           } catch (error) {
             if (error.message === 'Converting circular structure to JSON') {
@@ -56,16 +92,21 @@ class CreateElement {
       return `<${this.tag}${attr}>`
     }
   }
+  async htmlify () {
+    let _html =
+      this.tag !== 'html'
+        ? CreateElement.createHtml({ body: this })
+          .collect()
+          .render()
+        : this.collect().render()
+    _html = '<!DOCTYPE html>' + _html
+    return _html
+  }
   async writeFile (savePath = settings.TMPPATH, pretty_print = true) {
     if (!path.isAbsolute(savePath)) {
       throw new Error('Please specify with absolute path')
     }
-    // let _html = this.render()
-    let _html =
-      this.tag !== 'html'
-        ? CreateElement.createHtml({ body: this }).render()
-        : this.render()
-    _html = '<!DOCTYPE html>' + _html
+    const _html = await this.htmlify()
     fs.writeFileSync(savePath, _html)
     return savePath
   }
@@ -76,16 +117,31 @@ class CreateElement {
     opn(savePath)
     return savePath
   }
-  static createHtml (obj = {}) {
-    const footer = new CreateElement('footer', {}, [
-      new CreateElement('code', {}, settings.BROSYNC_CMD)
-    ])
+  static createHtml ({ head, body }) {
+    let _body = body || new CreateElement('body', {}, 'hello world')
+    if (_body.tag !== 'body') {
+      _body = new CreateElement('body', {}, _body)
+    }
     const html = new CreateElement('html', {}, [
-      obj.head || CreateElement.createHead(),
-      obj.body || new CreateElement('body', {}, 'hello world'),
-      footer
+      head || CreateElement.defaultHead(),
+      _body
     ])
     return html
+  }
+  static defaultHead (title = 'hify') {
+    return new CreateElement('head', {}, [
+      new CreateElement('title', {}, title),
+      new CreateElement('meta', { charset: 'utf-8' }),
+      new CreateElement('meta', {
+        name: 'viewport',
+        content: 'width=device-width,initial-scale=1'
+      }),
+      new CreateElement(
+        'style',
+        {},
+        fs.readFileSync(path.join(__dirname, '../css/github.css'), 'utf8')
+      )
+    ])
   }
   static createHead (obj) {
     if (!obj) {
@@ -97,6 +153,9 @@ class CreateElement {
         link: [
           { rel: 'stylesheet', href: path.join(__dirname, '../css/github.css') }
         ]
+        // style: [
+        //   new CreateElement('style', {},fs.readFileSync('../css/github.css','utf8'))
+        // ]
       }
     }
     const head = new CreateElement('head', {}, [])
@@ -114,6 +173,20 @@ class CreateElement {
       }
     }
     return head
+  }
+  static asset (src) {
+    switch (true) {
+      case /css$/.test(src):
+        return new CreateElement('link', { rel: 'stylesheet', href: src })
+      case /js$/.test(src):
+        return new CreateElement('script', { src: src })
+      case typeof src === 'function':
+        return new CreateElement('script', {}, `(${src.toString()})()`)
+      case src instanceof CreateElement:
+        return src
+      default:
+        return null
+    }
   }
 }
 

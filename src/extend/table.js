@@ -1,8 +1,8 @@
 const CE = require('../createElement')
 const colorAttributes = require('../helper/color-attributes')
-const isPlainObject = require('lodash.isplainobject')
+const { isPlainObject } = require('lodash-core')
 /**
- * list (ul || ol)
+ * table
  *
  * @param {Array} tArray - table Array
  * @param {Array} [args={}] - attributes

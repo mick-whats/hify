@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head><title>ElementUI sample</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/theme-chalk/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/darcula.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/index.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/locale/en.min.js"></script><script>(function () {
+    $(document).ready(function () {
+      $('pre code').each(function (i, block) {
+        hljs.highlightBlock(block)
+      })
+    })
+  })()</script></head><body><div class="uk-container .uk-container-large"><div uk-grid><div class="uk-width-3-4 uk-row-first"><div><h1>Element-ui with hify</h1><a href="http://element.eleme.io/#/en-US/component/date-picker">http://element.eleme.io/#/en-US/component/date-picker</a><div><div id="ElementUISample"><h2>url:</h2><p>{{ url }}</p><h2>search:</h2><p>{{ search }}</p><h2>date</h2><p>{{ datetime }}</p><el-date-picker v-model="datetime" type="date" default-value="2010/10/01" format="yyyy/MM/dd" value-format="yyyyMMdd" :picker-options="pickerOptions1"></el-date-picker></div><script>(() => {
+    Vue.use(ELEMENT)
+    Vue.use(ELEMENT.lang)
+
+    // eslint-disable-next-line no-new
+    new Vue({
+      el: '#ElementUISample',
+      data () {
+        return {
+          datetime: '',
+          url: location.href,
+          search: location.search || '',
+          pickerOptions1: {
+            disabledDate (time) {
+              return time.getTime() > Date.now()
+            },
+            shortcuts: [
+              {
+                text: 'Today',
+                onClick (picker) {
+                  picker.$emit('pick', new Date())
+                }
+              },
+              {
+                text: 'Yesterday',
+                onClick (picker) {
+                  const date = new Date()
+                  date.setTime(date.getTime() - 3600 * 1000 * 24)
+                  picker.$emit('pick', date)
+                }
+              }
+            ],
+            onPick (opt) {
+              console.log('opt: ', opt)
+            }
+          }
+        }
+      }
+    })
+  })()</script><pre style="white-space:pre-wrap;;"><code class="js">/* eslint-disable no-undef */
+const { CreateElement, el, ex, uk } = require(&#39;..&#39;)
+
+const ElementUISample = el.div([
+  el.div({ id: &#39;ElementUISample&#39; }, [
+    el.h2(&#39;url:&#39;),
+    el.p(&#39;{{ url }}&#39;),
+    el.h2(&#39;search:&#39;),
+    el.p(&#39;{{ search }}&#39;),
+    el.h2(&#39;date&#39;),
+    el.p(&#39;{{ datetime }}&#39;),
+    new CreateElement(&#39;el-date-picker&#39;, {
+      &#39;v-model&#39;: &#39;datetime&#39;,
+      type: &#39;date&#39;,
+      &#39;default-value&#39;: &#39;2010/10/01&#39;,
+      format: &#39;yyyy/MM/dd&#39;,
+      &#39;value-format&#39;: &#39;yyyyMMdd&#39;,
+      &#39;:picker-options&#39;: &#39;pickerOptions1&#39;
+    })
+  ]),
+  ex.script(() =&gt; {
+    Vue.use(ELEMENT)
+    // Vue.use(ELEMENT, { locale: &#39;ELEMENT.lang&#39; })
+    Vue.use(ELEMENT.lang)
+
+    // eslint-disable-next-line no-new
+    new Vue({
+      el: &#39;#ElementUISample&#39;,
+      data () {
+        return {
+          datetime: &#39;&#39;,
+          url: location.href,
+          search: location.search || &#39;&#39;,
+          pickerOptions1: {
+            disabledDate (time) {
+              return time.getTime() &gt; Date.now()
+            },
+            shortcuts: [
+              {
+                text: &#39;Today&#39;,
+                onClick (picker) {
+                  picker.$emit(&#39;pick&#39;, new Date())
+                }
+              },
+              {
+                text: &#39;Yesterday&#39;,
+                onClick (picker) {
+                  const date = new Date()
+                  date.setTime(date.getTime() - 3600 * 1000 * 24)
+                  picker.$emit(&#39;pick&#39;, date)
+                }
+              }
+            ],
+            onPick (opt) {
+              console.log(&#39;opt: &#39;, opt)
+            }
+          }
+        }
+      }
+    })
+  }),
+  ex.preCode([], true),
+  el.hr()
+])
+
+const main = el.div([
+  el.h1(&#39;Element-ui with hify&#39;),
+  ex.a(
+    &#39;http://element.eleme.io/#/en-US/component/date-picker&#39;,
+    &#39;http://element.eleme.io/#/en-US/component/date-picker&#39;
+  ),
+  ElementUISample,
+  el.hr()
+])
+main.assets = [
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/theme-chalk/index.css&#39;,
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/darcula.min.css&#39;,
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js&#39;,
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js&#39;,
+  &#39;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#39;,
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/index.js&#39;,
+  &#39;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/locale/en.min.js&#39;,
+  function () {
+    $(document).ready(function () {
+      $(&#39;pre code&#39;).each(function (i, block) {
+        hljs.highlightBlock(block)
+      })
+    })
+  }
+]
+const side = el.div([uk.h2(&#39;menu&#39;), el.hr()])
+
+module.exports = uk.sidebarContainer({
+  main,
+  side,
+  title: &#39;ElementUI sample&#39;
+})
+</code></pre><hr></div><hr></div></div><div class="uk-width-1-4 uk-background-muted"><div><h2 class="uk-heading-primary">links</h2><ul class="uk-nav uk-nav-default"><li><a href="ElementUISample.html">ElementUISample.js</a></li><li><a href="bootstrapDocsSidebar.html">bootstrapDocsSidebar.js</a></li><li><a href="vueDatePicker.html">vueDatePicker.js</a></li><li><a href="vueSample.html">vueSample.js</a></li></ul></div></div></div></div></body></html>

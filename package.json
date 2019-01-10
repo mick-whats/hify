@@ -2,7 +2,7 @@
   "name": "hify",
   "version": "0.0.1",
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">=8.3.0"
   },
   "description": "",
   "keywords": [
@@ -12,9 +12,12 @@
   "scripts": {
     "test": "jest",
     "test:watch": "npm run jest -- --watch",
-    "cover": "npm test -- --coverage"
+    "cover": "npm test -- --coverage",
+    "build:man": "node docSrc/man/make.js",
+    "build:watch": "chokidar \"**/docSrc/**\" -c \"npm run build:man\""
   },
   "devDependencies": {
+    "chokidar-cli": "^1.2.0",
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
@@ -27,9 +30,9 @@
     "prettier": "^1.15.3"
   },
   "main": "src/index.js",
-  "files": [
-    "src"
-  ],
+  "bin": {
+    "hify": "./bin/cli.js"
+  },
   "homepage": "https://github.com/mick-whats/hify",
   "bugs": "https://github.com/mick-whats/hify/issues",
   "repository": {
@@ -40,10 +43,12 @@
   "author": "mick-whats",
   "dependencies": {
     "args2": "^1.2.3",
+    "cac": "^6.3.12",
+    "escape-goat": "^1.3.0",
     "globby": "^8.0.1",
-    "lodash.isplainobject": "^4.0.6",
     "marked": "^0.5.2",
     "opn": "^5.4.0",
+    "rlite-router": "^2.0.3",
     "stringify-attributes": "^1.0.0",
     "stringify-entities": "^1.3.2"
   }

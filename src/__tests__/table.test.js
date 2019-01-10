@@ -1,5 +1,4 @@
-const { CreateElement } = require('..')
-const { el } = require('..')
+const { el, ex } = require('..')
 
 test('table ', () => {
   const _style = {
@@ -27,8 +26,8 @@ test('table ', () => {
       '</table>'
   )
 })
-test('should ', () => {
-  const table = el.tbl(
+test('table extend ', () => {
+  const table = ex.table(
     [
       [
         'name',
@@ -38,7 +37,7 @@ test('should ', () => {
       ],
       ['alice', 17, 'female'],
       ['bob', 24, 'male'],
-      ['chris', el.td(54, 'gold', 'gray'), 'male']
+      ['chris', ex.td(54, 'gold', 'gray'), 'male']
     ],
     { style: { width: '80%' } }
   )
