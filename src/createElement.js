@@ -5,7 +5,8 @@ const strfyAttributes = require('./helper/strfy-attributes')
 const settings = require('./settings')
 const isSimpleTag = require('./helper/isSimpleTag')
 const _ = require('lodash-core')
-
+const formatHtml = require('victorica')
+// const formatHtml = require('html-format')
 // const createHtml = require('./createHtml')
 
 class CreateElement {
@@ -30,7 +31,7 @@ class CreateElement {
     }
   }
   collect (nest) {
-    // const _requires = this._assets // TODO: 代入の必要ない？
+    // TODO: headに直接コレクトする
     this.contents.forEach(content => {
       if (content instanceof CreateElement) {
         try {
@@ -100,9 +101,9 @@ class CreateElement {
           .render()
         : this.collect().render()
     _html = '<!DOCTYPE html>' + _html
-    return _html
+    return formatHtml(_html, { space: '  ' })
   }
-  async writeFile (savePath = settings.TMPPATH, pretty_print = true) {
+  async writeFile (savePath = settings.TMPPATH) {
     if (!path.isAbsolute(savePath)) {
       throw new Error('Please specify with absolute path')
     }
@@ -111,7 +112,7 @@ class CreateElement {
     return savePath
   }
 
-  async toBrowser (savePath = settings.TMPPATH, pretty_print = true) {
+  async toBrowser (savePath = settings.TMPPATH) {
     await this.writeFile(savePath, pretty_print)
     console.log('opn: ', opn)
     opn(savePath)
@@ -185,7 +186,7 @@ class CreateElement {
       case src instanceof CreateElement:
         return src
       default:
-        return null
+        return new CreateElement('style', {}, String(src))
     }
   }
 }

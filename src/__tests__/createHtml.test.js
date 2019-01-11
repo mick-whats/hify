@@ -25,18 +25,18 @@ test('htmlify ', async () => {
   // console.log('html: ', html.contents[1].contents[0]._assets)
   const res = await html.htmlify()
   expect(res).toMatch(new RegExp('<html>'))
-  expect(res).toMatch(
-    new RegExp('<head><title>hify</title><meta charset="utf-8">')
-  )
+  expect(res).toMatch(new RegExp('<head>'))
+  expect(res).toMatch(new RegExp('<title>hify</title>'))
+  expect(res).toMatch(new RegExp('<meta charset="utf-8">'))
   expect(res).toMatch(
     new RegExp(
-      '<meta name="viewport" content="width=device-width,initial-scale=1"><style>'
+      '<meta name="viewport" content="width=device-width,initial-scale=1">'
     )
   )
+  expect(res).toMatch(new RegExp('<style>[\\s\\S]*?</style>'))
 
-  expect(res).toMatch(
-    new RegExp(
-      '</style><link rel="stylesheet" href="test.css"><script src="test.js"></script></head>'
-    )
-  )
+  expect(res).toMatch(new RegExp('<link rel="stylesheet" href="test.css">'))
+  expect(res).toMatch(new RegExp('<script src="test.js"></script>'))
+  expect(res).toMatch(new RegExp('</head>'))
+  expect(res).toMatch(new RegExp('</html>'))
 })

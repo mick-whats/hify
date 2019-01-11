@@ -4,6 +4,18 @@ const el = require('../element')
 const ex = require('../extend')
 const cdn = require('../cdn')
 // eslint-disable-next-line jsdoc/require-example
+
+module.exports.header = require('./header')
+module.exports.container = require('./container')
+module.exports.breadcrumb = list => {
+  let last = list.pop()
+  last = Array.isArray(last) ? last[0] : last
+  const _list = list.map(item => {
+    return ex.a(...item)
+  })
+  _list.push(el.span(last))
+  return ex.ul(_list, { class: 'uk-breadcrumb' })
+}
 /**
  * defaultHead
  * htmlのhead部分

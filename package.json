@@ -48,8 +48,10 @@
     "globby": "^8.0.1",
     "marked": "^0.5.2",
     "opn": "^5.4.0",
+    "pretty": "^2.0.0",
     "rlite-router": "^2.0.3",
     "stringify-attributes": "^1.0.0",
-    "stringify-entities": "^1.3.2"
+    "stringify-entities": "^1.3.2",
+    "victorica": "^0.0.2"
   }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>sidebarContainer sample</title>
+    <title></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css">
@@ -12,21 +12,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js"></script>
   </head>
   <body>
-    <div class="uk-container .uk-container-large">
-      <div uk-grid>
-        <div class="uk-width-3-4 uk-row-first">
-          <div>
-            <h1>sidebarContainer</h1>
-            <p>hogemoge</p>
-          </div>
-        </div>
-        <div class="uk-width-1-4 uk-background-muted">
-          <ul>
-            <li>foo</li>
-            <li>bar</li>
-            <li>baz</li>
-          </ul>
-        </div>
+    <div class="uk-container">
+      <div>
+        <ul class="uk-breadcrumb">
+          <li>
+            <a href="#foo">foo</a>
+          </li>
+          <li>
+            <a href="#bar">bar</a>
+          </li>
+          <li>
+            <span>baz</span>
+          </li>
+        </ul>
+        <pre style="white-space:pre-wrap;;"><code class="js">const list = [[&#39;foo&#39;, &#39;#foo&#39;], [&#39;bar&#39;, &#39;#bar&#39;], [&#39;baz&#39;, &#39;#baz&#39;]]
+const div = el.div([
+  breadcrumb(list),
+  ex.preCode([
+    
+  ])
+])</code></pre>
       </div>
     </div>
   </body>
