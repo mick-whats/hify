@@ -56,10 +56,11 @@ module.exports.ol = (cont, ...args) => list('ol', cont, ...args)
 module.exports.table = require('./table')
 module.exports.md = require('./markdown')
 module.exports.sidebarContainer = require('./sidebarContainer')
-module.exports.preCode = (cont, escape = true) => {
+module.exports.preCode = (cont, _class) => {
+  _class = _class || 'js'
   cont = Array.isArray(cont) ? cont.join('\n') : cont
-  const _cont = escape ? escapeGoat.escape(cont) : cont
-  return el.pre([el.code({ class: 'js' }, _cont)], {
+  const _cont = escapeGoat.escape(cont)
+  return el.pre([el.code({ class: _class }, _cont)], {
     style: { 'white-space': 'pre-wrap;' }
   })
 }
