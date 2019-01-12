@@ -1,10 +1,33 @@
-module.exports.jquery3 = [
+const highlightJs =
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js'
+const highlightFn = () => {
+  $(document).ready(function () {
+    $('pre code').each(function (i, block) {
+      hljs.highlightBlock(block)
+    })
+  })
+}
+const jquery3 =
   'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'
-]
+module.exports.jquery3 = [jquery3]
 
 module.exports.highlightJs_darcula = [
+  jquery3,
   'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/darcula.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js'
+  highlightJs,
+  highlightFn
+]
+module.exports.highlightJs_gruvbox_light = [
+  jquery3,
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/gruvbox-light.min.css',
+  highlightJs,
+  highlightFn
+]
+module.exports.highlightJs_monokai = [
+  jquery3,
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/monokai.min.css',
+  highlightJs,
+  highlightFn
 ]
 module.exports.uikit = [
   'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css',

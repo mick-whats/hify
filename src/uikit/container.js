@@ -9,7 +9,7 @@ module.exports = ({ main, side, header, footer, title, head }) => {
   if (main == null) {
     throw new Error('mainは必須です')
   }
-  main = el.div({ class: 'uk-container' }, [main])
+  // main = el.div({ class: 'uk-container' }, [main])
   if (head == null) {
     head = new CE('head', {}, [
       new CE('title', {}, title),
@@ -21,12 +21,22 @@ module.exports = ({ main, side, header, footer, title, head }) => {
     ])
   }
   head.assets = cdn.uikit
-
-  if (header) {
-    const body = el.body([header, main])
-    return el.html([head, body])
+  const body = el.body()
+  if (header) body.contents.push(header)
+  if (side) {
+    body.contents.push(
+      el.div({ class: 'uk-container' }, [
+        el.div({ 'uk-grid': true, class: 'uk-grid' }, [
+          el.main({ class: 'uk-width-3-4 uk-row-first uk-first-column' }, [
+            main
+          ]),
+          el.nav({ class: 'uk-width-1-4' }, [side])
+        ])
+      ])
+    )
   } else {
-    const body = el.body([main])
-    return el.html([head, body])
+    body.contents.push(el.main({ class: 'uk-container' }, [main]))
   }
+  if (footer) body.contents.push(footer)
+  return el.html([head, body])
 }
