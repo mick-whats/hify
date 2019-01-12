@@ -15,7 +15,7 @@ exports[`uikit header test  1`] = `
     <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js\\"></script>
   </head>
   <body>
-    <div class=\\"uk-container\\">
+    <main class=\\"uk-container\\">
       <div>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">  const logo = [&#39;Hify&#39;, &#39;/&#39;]
   const list = [
@@ -25,7 +25,7 @@ exports[`uikit header test  1`] = `
   ]</code></pre>
         <h2>only left</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ left: list }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
           <div class=\\"uk-navbar-left\\">
             <ul class=\\"uk-navbar-nav\\">
               <li>
@@ -40,11 +40,11 @@ exports[`uikit header test  1`] = `
             </ul>
           </div>
           <div class=\\"uk-navbar-right\\"></div>
-        </nav>
+        </header>
         <hr>
         <h2>only right</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ right: list }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
           <div class=\\"uk-navbar-left\\"></div>
           <div class=\\"uk-navbar-right\\">
             <ul class=\\"uk-navbar-nav\\">
@@ -59,11 +59,11 @@ exports[`uikit header test  1`] = `
               </li>
             </ul>
           </div>
-        </nav>
+        </header>
         <hr>
         <h2>logo, left, right</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, left: list, right: list }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
           <div class=\\"uk-navbar-left\\">
             <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
             <ul class=\\"uk-navbar-nav\\">
@@ -91,11 +91,11 @@ exports[`uikit header test  1`] = `
               </li>
             </ul>
           </div>
-        </nav>
+        </header>
         <hr>
         <h2>logo, left</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, left: list }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
           <div class=\\"uk-navbar-left\\">
             <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
             <ul class=\\"uk-navbar-nav\\">
@@ -111,11 +111,11 @@ exports[`uikit header test  1`] = `
             </ul>
           </div>
           <div class=\\"uk-navbar-right\\"></div>
-        </nav>
+        </header>
         <hr>
         <h2>logo, right</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, right: list }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"\\">
           <div class=\\"uk-navbar-left\\">
             <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
           </div>
@@ -132,11 +132,11 @@ exports[`uikit header test  1`] = `
               </li>
             </ul>
           </div>
-        </nav>
+        </header>
         <hr>
         <h2>style</h2>
         <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, right: list, style: { &#39;background-color&#39;: &#39;lightgreen&#39; } }),</code></pre>
-        <nav class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"background-color:lightgreen;\\">
+        <header class=\\"uk-navbar-container uk-margin\\" uk-navbar style=\\"background-color:lightgreen;\\">
           <div class=\\"uk-navbar-left\\">
             <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
           </div>
@@ -153,9 +153,9 @@ exports[`uikit header test  1`] = `
               </li>
             </ul>
           </div>
-        </nav>
+        </header>
       </div>
-    </div>
+    </main>
   </body>
 </html>"
 `;

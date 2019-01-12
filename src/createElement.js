@@ -6,6 +6,7 @@ const settings = require('./settings')
 const isSimpleTag = require('./helper/isSimpleTag')
 const _ = require('lodash-core')
 const formatHtml = require('victorica')
+const escapeGoat = require('escape-goat')
 // const formatHtml = require('html-format')
 // const createHtml = require('./createHtml')
 
