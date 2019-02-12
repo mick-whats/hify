@@ -1,14 +1,16 @@
 const hify = require('..')
 const { CreateElement } = hify
 const http = require('http')
-const globby = require('globby')
+const globby = require('globby') // TODO: 削除予定
+const glob = require('tiny-glob')
 const rlite = require('rlite-router')
 const routeMap = require('./routeMap')
 
-module.exports = options => {
+module.exports = async options => {
   const port = options.port || 8888
   const rootDir = options.root || 'www'
-  const pages = globby.sync([rootDir])
+  const pages = await glob('**/' + rootDir + '/**/*.js')
+  // const pages = globby.sync([rootDir])
   const notFound = () => new CreateElement('h1', {}, '404 NOT FOUND').render()
   const routes = rlite(notFound, routeMap(pages, rootDir))
   console.info('server start: ', `http://localhost:${port}`)
@@ -16,10 +18,9 @@ module.exports = options => {
     const url = req.url
     console.info('responce: ', url)
     if (url !== '/favicon.ico') {
-      console.log('url!!: ', url)
-      const element = routes(url)
+      const element = await routes(url)
       if (element instanceof CreateElement) {
-        const html = await element.htmlify().catch(err => {
+        const html = await element.toHtml().catch(err => {
           console.error('server error: ', err)
           res.write(err.message)
           res.end()

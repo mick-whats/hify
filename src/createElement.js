@@ -6,7 +6,7 @@ const settings = require('./settings')
 const isSimpleTag = require('./helper/isSimpleTag')
 const _ = require('lodash-core')
 const formatHtml = require('victorica')
-const escapeGoat = require('escape-goat')
+const cdn = require('./cdn')
 // const formatHtml = require('html-format')
 // const createHtml = require('./createHtml')
 
@@ -25,6 +25,9 @@ class CreateElement {
     return this._assets
   }
   set assets (arg) {
+    this._assets = arg
+  }
+  addAssets (arg) {
     if (Array.isArray(arg)) {
       this._assets.push(...arg)
     } else {
@@ -32,15 +35,14 @@ class CreateElement {
     }
   }
   collect (nest) {
-    // TODO: headに直接コレクトする
     this.contents.forEach(content => {
       if (content instanceof CreateElement) {
         try {
           JSON.stringify(content)
-          if (content._assets.length) {
-            this.assets = content._assets
+          if (content.assets.length) {
+            this.addAssets(content.assets)
           }
-          this.assets = content.collect(true)
+          this.addAssets(content.collect(true))
           // _requires.push(...content.collect(true))
         } catch (error) {
           if (error.message !== 'Converting circular structure to JSON') {
@@ -52,7 +54,7 @@ class CreateElement {
     if (nest) {
       return this.assets || []
     } else {
-      this._assets = _.uniq(this.assets)
+      this.assets = _.uniq(this.assets)
       return this
     }
   }
@@ -65,10 +67,20 @@ class CreateElement {
     ) {
       this.contents[0].assets = this.assets
     }
-    if (this.tag === 'head' && this.assets.length) {
-      this.assets.forEach(_require => {
+    if (this.tag === 'head') {
+      const assets = _(this.assets)
+        .chain()
+        .flatten()
+        .uniq()
+        .value()
+      assets.forEach((_require, i) => {
         const asset = CreateElement.asset(_require)
-        if (asset) this.contents.push(asset)
+        if (asset) {
+          const _equal = this.contents.find(elem => {
+            return _.isEqual(asset, elem)
+          })
+          if (!_equal) this.contents.push(asset)
+        }
       })
     }
     if (!isSimpleTag(this.tag)) {
@@ -94,7 +106,7 @@ class CreateElement {
       return `<${this.tag}${attr}>`
     }
   }
-  async htmlify () {
+  async toHtml () {
     let _html =
       this.tag !== 'html'
         ? CreateElement.createHtml({ body: this })
@@ -104,17 +116,17 @@ class CreateElement {
     _html = '<!DOCTYPE html>' + _html
     return formatHtml(_html, { space: '  ' })
   }
-  async writeFile (savePath = settings.TMPPATH) {
+  async toFile (savePath = settings.TMPPATH) {
     if (!path.isAbsolute(savePath)) {
       throw new Error('Please specify with absolute path')
     }
-    const _html = await this.htmlify()
-    fs.writeFileSync(savePath, _html)
+    const _html = await this.toHtml()
+    fs.writeFileSync(savePath, _html) // TODO: atomicify
     return savePath
   }
 
   async toBrowser (savePath = settings.TMPPATH) {
-    await this.writeFile(savePath, pretty_print)
+    await this.toFile(savePath)
     console.log('opn: ', opn)
     opn(savePath)
     return savePath
@@ -131,19 +143,16 @@ class CreateElement {
     return html
   }
   static defaultHead (title = 'hify') {
-    return new CreateElement('head', {}, [
+    const _head = new CreateElement('head', {}, [
       new CreateElement('title', {}, title),
       new CreateElement('meta', { charset: 'utf-8' }),
       new CreateElement('meta', {
         name: 'viewport',
         content: 'width=device-width,initial-scale=1'
-      }),
-      new CreateElement(
-        'style',
-        {},
-        fs.readFileSync(path.join(__dirname, '../css/github.css'), 'utf8')
-      )
+      })
     ])
+    _head.addAssets(cdn.uikit)
+    return _head
   }
   static createHead (obj) {
     if (!obj) {
@@ -155,9 +164,6 @@ class CreateElement {
         link: [
           { rel: 'stylesheet', href: path.join(__dirname, '../css/github.css') }
         ]
-        // style: [
-        //   new CreateElement('style', {},fs.readFileSync('../css/github.css','utf8'))
-        // ]
       }
     }
     const head = new CreateElement('head', {}, [])

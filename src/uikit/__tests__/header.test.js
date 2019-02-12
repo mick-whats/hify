@@ -44,6 +44,6 @@ test('uikit header test ', async () => {
     header({ logo, right: list, style: { 'background-color': 'lightgreen' } })
   ])
   const con = container({ main: div })
-  const res = await con.htmlify()
+  const res = await con.toHtml()
   expect(res).toMatchSnapshot()
 })

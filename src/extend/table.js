@@ -1,6 +1,7 @@
 const CE = require('../createElement')
 const colorAttributes = require('../helper/color-attributes')
-const { isPlainObject } = require('lodash-core')
+const _ = require('lodash-core')
+const { isPlainObject } = _
 /**
  * table
  *
@@ -25,10 +26,46 @@ const { isPlainObject } = require('lodash-core')
  * table.render()
  */
 function tbl (tArray, ...args) {
+  if (!Array.isArray(tArray)) throw new Error('required array type argument')
   args = colorAttributes(...args)
   const _table = new CE('table', args)
   const _thead = new CE('thead')
   const _tbody = new CE('tbody')
+  if (isPlainObject(tArray[0])) {
+    let keys = null
+    const _refArr = []
+    tArray.forEach((row, i) => {
+      if (i === 0) {
+        const _keys = []
+        let _headerAttr = null
+        const _values = []
+        Object.entries(row).forEach(([k, v]) => {
+          if (isPlainObject(v)) {
+            if (v.header) {
+              _headerAttr = v
+            } else {
+              _values.push(v)
+            }
+          } else {
+            _keys.push(k)
+            _values.push(v)
+          }
+        })
+        keys = _.cloneDeep(_keys)
+        if (_headerAttr) _keys.push(_headerAttr)
+        _refArr.push(_keys, _values)
+      } else {
+        const _values = []
+        const _trAttr = Object.values(row).find(cell => isPlainObject(cell))
+        keys.forEach(key => {
+          _values.push(row[key])
+        })
+        if (_trAttr) _values.push(_trAttr)
+        _refArr.push(_values)
+      }
+    })
+    tArray = _refArr
+  }
   tArray.forEach(row => {
     const _trAttr = row.find(c => isPlainObject(c)) || {}
     let _cellTagName = 'td'

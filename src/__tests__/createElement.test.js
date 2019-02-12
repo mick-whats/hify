@@ -2,13 +2,13 @@ const { el } = require('..')
 
 test('assets ', async () => {
   const d1 = el.div()
-  d1.assets = 'test1.css'
-  d1.assets = 'test1.js'
-  d1.assets = () => true
+  d1.addAssets('test1.css')
+  d1.addAssets('test1.js')
+  d1.addAssets(() => true)
   const d2 = el.div([d1])
-  d2.assets = ['test2.css', ['test2.js']]
+  d2.addAssets(['test2.css', ['test2.js']])
   const div = el.div([d2])
-  const res = await div.htmlify()
+  const res = await div.toHtml()
   expect(res.includes('<link rel="stylesheet" href="test1.css">')).toBeTruthy()
   expect(res.includes('<script src="test1.js"></script>')).toBeTruthy()
   expect(res.includes('<script>(() => true)()</script>')).toBeTruthy()

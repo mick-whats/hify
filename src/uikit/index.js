@@ -1,11 +1,22 @@
+// eslint-disable-next-line jsdoc/require-example
 /** @typedef {Object} CreateElement */
 const CE = require('../createElement')
 const el = require('../element')
 const ex = require('../extend')
 const cdn = require('../cdn')
-// eslint-disable-next-line jsdoc/require-example
 
+const tables = require('./tables')
+module.exports.table1 = tables.table1
+module.exports.table2 = tables.table2
+module.exports.table3 = tables.table3
+module.exports.table4 = tables.table4
+module.exports.table5 = tables.table5
+module.exports.table6 = tables.table6
+module.exports.table7 = tables.table7
+module.exports.table8 = tables.table8
+module.exports.table9 = tables.table9
 module.exports.header = require('./header')
+module.exports.switcher = require('./switcher')
 module.exports.container = require('./container')
 module.exports.breadcrumb = list => {
   let last = list.pop()
@@ -33,7 +44,7 @@ function defaultHead (title = 'hify') {
       content: 'width=device-width,initial-scale=1'
     })
   ])
-  _head.assets = cdn.uikit
+  _head.addAssets(cdn.uikit)
   return _head
 }
 module.exports.defaultHead = defaultHead

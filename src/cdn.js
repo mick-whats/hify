@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const highlightJs =
   'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js'
 const highlightFn = () => {
@@ -44,4 +45,11 @@ module.exports.elementUi = [
 
 module.exports.vuejs = [
   'https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.min.js'
+]
+
+module.exports.moment = [
+  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js'
+]
+module.exports.momentWithLocales = [
+  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment-with-locales.min.js'
 ]

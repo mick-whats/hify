@@ -3,11 +3,12 @@ const CreateElement = require('../createElement')
 const el = require('../element')
 const ex = require('../extend')
 
-module.exports = ({ logo, left, right, style }) => {
+module.exports = ({ logo, left, right, style, sticky }) => {
   const attr = {
     class: 'uk-navbar-container uk-margin',
     'uk-navbar': true,
-    style: style || {}
+    style: style || {},
+    'uk-sticky': !!sticky
   }
   const contents = []
   const _left = el.div({ class: 'uk-navbar-left' })

@@ -20,7 +20,7 @@ module.exports = ({ main, side, header, footer, title, head }) => {
       })
     ])
   }
-  head.assets = cdn.uikit
+  head.addAssets(cdn.uikit)
   const body = el.body()
   if (header) body.contents.push(header)
   if (side) {

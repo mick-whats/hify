@@ -20,6 +20,6 @@ test('should ', async () => {
     ]
   )
 
-  // const res = await container({ main, header }).writeFile()
+  // const res = await container({ main, header }).toFile()
   // console.log('container: ', res)
 })

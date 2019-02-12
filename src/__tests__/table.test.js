@@ -1,5 +1,15 @@
 const { el, ex } = require('..')
-
+const html1 =
+  '<table style="width:80%;">' +
+  '<thead>' +
+  '<tr style="background-color:silver;">' +
+  '<th>name</th><th>age</th><th>sex</th></tr>' +
+  '</thead>' +
+  '<tbody>' +
+  '<tr><td>alice</td><td>17</td><td>female</td></tr>' +
+  '<tr><td>bob</td><td>24</td><td>male</td></tr>' +
+  '<tr><td>chris</td><td style="color:gold;background-color:gray;">54</td><td>male</td></tr>' +
+  '</tbody></table>'
 test('table ', () => {
   const _style = {
     style: { border: 'double', 'background-color': 'gray' }
@@ -12,7 +22,7 @@ test('table ', () => {
       el.tr([el.td('chris'), el.td('54'), el.td('male')])
     ])
   ])
-  // table.writeFile()
+  // table.toFile()
   expect(table.render()).toBe(
     '<table>' +
       '<thead>' +
@@ -41,27 +51,34 @@ test('table extend ', () => {
     ],
     { style: { width: '80%' } }
   )
-  // table.writeFile()
-  expect(table.render()).toBe(
-    '<table style="width:80%;">' +
-      '<thead>' +
-      '<tr style="background-color:silver;">' +
-      '<th>name</th><th>age</th><th>sex</th></tr>' +
-      '</thead>' +
-      '<tbody>' +
-      '<tr><td>alice</td><td>17</td><td>female</td></tr>' +
-      '<tr><td>bob</td><td>24</td><td>male</td></tr>' +
-      '<tr><td>chris</td><td style="color:gold;background-color:gray;">54</td><td>male</td></tr>' +
-      '</tbody></table>'
-  )
+  // table.toBrowser()
+  expect(table.render()).toBe(html1)
 })
 
-// test('bind function', () => {
-//   const fn = cont => {
-//     const _p = el.p(cont)
-//     _p.attributes = { style: { color: 'red' } }
-//     return _p
-//   }
-//   const res = fn('paragraph').render()
-//   expect(res).toBe('<p style="color:red;">paragraph</p>')
-// })
+test('table extend object[]', () => {
+  const table = ex.table(
+    [
+      {
+        name: 'alice',
+        age: 17,
+        sex: 'female',
+        // 中身がObjectなら_trAttrというkeynameでなくても良い
+        _trAttr: { header: true, style: { 'background-color': 'silver' } }
+      },
+      {
+        name: 'bob',
+        age: 24,
+        sex: 'male'
+      },
+      {
+        name: 'chris',
+        age: ex.td(54, 'gold', 'gray'),
+        sex: 'male'
+      }
+    ],
+
+    { style: { width: '80%' } }
+  )
+  // table.toFile()
+  expect(table.render()).toBe(html1)
+})
