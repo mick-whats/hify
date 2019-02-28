@@ -2,15 +2,14 @@
 const CreateElement = require('../createElement')
 const el = require('../element')
 const ex = require('../extend')
-const chalk = require('chalk')
 /**
- * @deprecated
- * uk.navbarに移行します
+ * uk.navbar
+ *
+ * @see https://getuikit.com/docs/navbar
  * @param {*} { - logo, left, right, style, sticky }
  * @returns
  */
 module.exports = ({ logo, left, right, style, sticky }) => {
-  console.warn(chalk.red('uk.header is deprecated Please use uk.navbar'))
   const attr = {
     class: 'uk-navbar-container',
     'uk-navbar': true,
@@ -39,5 +38,5 @@ module.exports = ({ logo, left, right, style, sticky }) => {
     _right.contents.push(ex.ul(right, { class: 'uk-navbar-nav' }))
   }
   contents.push(_left, _right)
-  return el.header(attr, contents)
+  return el.nav(attr, contents)
 }

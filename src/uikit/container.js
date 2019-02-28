@@ -5,21 +5,28 @@ const cdn = require('../cdn')
 // const ex = require('../../extend')
 // const cdn = require('../../cdn')
 
-module.exports = ({ main, side, header, footer, title, head }) => {
+/**
+ * uk.container
+ *
+ * @param {*} { - main, side, header, footer, title = 'hify', head }
+ * @returns
+ */
+module.exports = ({ main, side, header, footer, title = 'hify', head }) => {
   if (main == null) {
     throw new Error('mainは必須です')
   }
   // main = el.div({ class: 'uk-container' }, [main])
-  if (head == null) {
-    head = new CE('head', {}, [
-      new CE('title', {}, title),
-      new CE('meta', { charset: 'utf-8' }),
-      new CE('meta', {
-        name: 'viewport',
-        content: 'width=device-width,initial-scale=1'
-      })
-    ])
-  }
+  // if (head == null) {
+  //   head = new CE('head', {}, [
+  //     new CE('title', {}, title),
+  //     new CE('meta', { charset: 'utf-8' }),
+  //     new CE('meta', {
+  //       name: 'viewport',
+  //       content: 'width=device-width,initial-scale=1'
+  //     })
+  //   ])
+  // }
+  head = head || CE.defaultHead(title)
   head.addAssets(cdn.uikit)
   const body = el.body()
   if (header) body.contents.push(header)

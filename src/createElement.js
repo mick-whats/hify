@@ -11,6 +11,13 @@ const cdn = require('./cdn')
 // const createHtml = require('./createHtml')
 
 class CreateElement {
+  /**
+   *Creates an instance of CreateElement.
+   * @param {string} tag
+   * @param {object} [attr={}]
+   * @param {Array} contents
+   * @memberof CreateElement
+   */
   constructor (tag, attr = {}, contents) {
     this.tag = tag
     this.attributes = attr
