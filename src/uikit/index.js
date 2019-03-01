@@ -16,6 +16,7 @@ module.exports.table7 = tables.table7
 module.exports.table8 = tables.table8
 module.exports.table9 = tables.table9
 module.exports.header = require('./header')
+module.exports.navbar = require('./navbar')
 module.exports.switcher = require('./switcher')
 module.exports.container = require('./container')
 module.exports.breadcrumb = list => {
