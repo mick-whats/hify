@@ -26,8 +26,8 @@ module.exports = ({ logo, left, right, style, sticky }) => {
             return el.li([ex.a(dropDownItem[0], dropDownItem[1])])
           }
           const label = Array.isArray(dropDownItem)
-            ? String(dropDownItem[0])
-            : String(dropDownItem)
+            ? dropDownItem[0]
+            : dropDownItem
           return label === '---'
             ? el.li({ class: 'uk-nav-divider' })
             : el.li({ class: 'uk-nav-header' }, label)
@@ -39,7 +39,7 @@ module.exports = ({ logo, left, right, style, sticky }) => {
         )
         return dropDownList
       } else {
-        return el.li([ex.a(String(line[0]), String(line[1]))])
+        return el.li([ex.a(line[0], String(line[1]))])
       }
     })
     return el.ul(contents, { class: 'uk-navbar-nav' })
