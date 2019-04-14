@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uikit header test  1`] = `
+"<!DOCTYPE html>
+<html>
+  <head>
+    <title>hify</title>
+    <meta charset=\\"utf-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width,initial-scale=1\\">
+    <link rel=\\"stylesheet\\" href=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css\\">
+    <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js\\"></script>
+    <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js\\"></script>
+  </head>
+  <body>
+    <main class=\\"uk-container\\">
+      <div>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">  const logo = [&#39;Hify&#39;, &#39;/&#39;]
+  const list = [
+    ex.a(&#39;link a&#39;, &#39;/a&#39;),
+    ex.a(&#39;link b&#39;, &#39;/b&#39;),
+    ex.a(&#39;link c&#39;, &#39;/c&#39;)
+  ]</code></pre>
+        <h2>only left</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ left: list }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"\\">
+          <div class=\\"uk-navbar-left\\">
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+          <div class=\\"uk-navbar-right\\"></div>
+        </header>
+        <hr>
+        <h2>only right</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ right: list }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"\\">
+          <div class=\\"uk-navbar-left\\"></div>
+          <div class=\\"uk-navbar-right\\">
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+        </header>
+        <hr>
+        <h2>logo, left, right</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, left: list, right: list }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"\\">
+          <div class=\\"uk-navbar-left\\">
+            <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+          <div class=\\"uk-navbar-right\\">
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+        </header>
+        <hr>
+        <h2>logo, left</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, left: list }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"\\">
+          <div class=\\"uk-navbar-left\\">
+            <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+          <div class=\\"uk-navbar-right\\"></div>
+        </header>
+        <hr>
+        <h2>logo, right</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, right: list }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"\\">
+          <div class=\\"uk-navbar-left\\">
+            <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
+          </div>
+          <div class=\\"uk-navbar-right\\">
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+        </header>
+        <hr>
+        <h2>style</h2>
+        <pre style=\\"white-space:pre-wrap;;\\"><code class=\\"js\\">header({ logo, right: list, style: { &#39;background-color&#39;: &#39;lightgreen&#39; } }),</code></pre>
+        <header class=\\"uk-navbar-container\\" uk-navbar style=\\"background-color:lightgreen;\\">
+          <div class=\\"uk-navbar-left\\">
+            <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
+          </div>
+          <div class=\\"uk-navbar-right\\">
+            <ul class=\\"uk-navbar-nav\\">
+              <li>
+                <a href=\\"/a\\">link a</a>
+              </li>
+              <li>
+                <a href=\\"/b\\">link b</a>
+              </li>
+              <li>
+                <a href=\\"/c\\">link c</a>
+              </li>
+            </ul>
+          </div>
+        </header>
+      </div>
+    </main>
+  </body>
+</html>"
+`;

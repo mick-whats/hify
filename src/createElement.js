@@ -3,26 +3,21 @@ const path = require('path')
 const opn = require('opn')
 const strfyAttributes = require('./helper/strfy-attributes')
 const settings = require('./settings')
-
+const isSimpleTag = require('./helper/isSimpleTag')
+const _ = require('lodash-core')
+const formatHtml = require('victorica')
+const cdn = require('./cdn')
+// const formatHtml = require('html-format')
 // const createHtml = require('./createHtml')
-const simpleTags = [
-  'br',
-  'img',
-  'hr',
-  'meta',
-  'input',
-  'embed',
-  'area',
-  'base',
-  'col',
-  'keygen',
-  'link',
-  'param',
-  'source'
-]
-const isSimple = tagName => simpleTags.includes(tagName)
 
 class CreateElement {
+  /**
+   *Creates an instance of CreateElement.
+   * @param {string} tag
+   * @param {object} [attr={}]
+   * @param {Array} contents
+   * @memberof CreateElement
+   */
   constructor (tag, attr = {}, contents) {
     this.tag = tag
     this.attributes = attr
@@ -31,14 +26,76 @@ class CreateElement {
       : contents == null
         ? []
         : [contents]
+    this._assets = []
+  }
+  get assets () {
+    return this._assets
+  }
+  set assets (arg) {
+    this._assets = arg
+  }
+  addAssets (arg) {
+    if (Array.isArray(arg)) {
+      this._assets.push(...arg)
+    } else {
+      this._assets.push(arg)
+    }
+  }
+  collect (nest) {
+    this.contents.forEach(content => {
+      if (content instanceof CreateElement) {
+        try {
+          JSON.stringify(content)
+          if (content.assets.length) {
+            this.addAssets(content.assets)
+          }
+          this.addAssets(content.collect(true))
+          // _requires.push(...content.collect(true))
+        } catch (error) {
+          if (error.message !== 'Converting circular structure to JSON') {
+            throw error
+          }
+        }
+      }
+    })
+    if (nest) {
+      return this.assets || []
+    } else {
+      this.assets = _.uniq(this.assets)
+      return this
+    }
   }
   render () {
     const attr = strfyAttributes(this.attributes)
-    if (!isSimple(this.tag)) {
+    if (
+      this.tag === 'html' &&
+      this.assets.length &&
+      this.contents[0].tag === 'head'
+    ) {
+      this.contents[0].assets = this.assets
+    }
+    if (this.tag === 'head') {
+      const assets = _(this.assets)
+        .chain()
+        .flatten()
+        .uniq()
+        .value()
+      assets.forEach((_require, i) => {
+        const asset = CreateElement.asset(_require)
+        if (asset) {
+          const _equal = this.contents.find(elem => {
+            return _.isEqual(asset, elem)
+          })
+          if (!_equal) this.contents.push(asset)
+        }
+      })
+    }
+    if (!isSimpleTag(this.tag)) {
       let contents = this.contents.map(content => {
         if (content instanceof CreateElement) {
           try {
             JSON.stringify(content)
+            // content.assets = this.assets
             content = content.render()
           } catch (error) {
             if (error.message === 'Converting circular structure to JSON') {
@@ -56,36 +113,53 @@ class CreateElement {
       return `<${this.tag}${attr}>`
     }
   }
-  async writeFile (savePath = settings.TMPPATH, pretty_print = true) {
+  async toHtml () {
+    let _html =
+      this.tag !== 'html'
+        ? CreateElement.createHtml({ body: this })
+          .collect()
+          .render()
+        : this.collect().render()
+    _html = '<!DOCTYPE html>' + _html
+    return formatHtml(_html, { space: '  ' })
+  }
+  async toFile (savePath = settings.TMPPATH) {
     if (!path.isAbsolute(savePath)) {
       throw new Error('Please specify with absolute path')
     }
-    // let _html = this.render()
-    let _html =
-      this.tag !== 'html'
-        ? CreateElement.createHtml({ body: this }).render()
-        : this.render()
-    _html = '<!DOCTYPE html>' + _html
-    fs.writeFileSync(savePath, _html)
+    const _html = await this.toHtml()
+    fs.writeFileSync(savePath, _html) // TODO: atomicify
     return savePath
   }
 
-  async toBrowser (savePath = settings.TMPPATH, pretty_print = true) {
-    await this.writeFile(savePath, pretty_print)
+  async toBrowser (savePath = settings.TMPPATH) {
+    await this.toFile(savePath)
     console.log('opn: ', opn)
     opn(savePath)
     return savePath
   }
-  static createHtml (obj = {}) {
-    const footer = new CreateElement('footer', {}, [
-      new CreateElement('code', {}, settings.BROSYNC_CMD)
-    ])
+  static createHtml ({ head, body }) {
+    let _body = body || new CreateElement('body', {}, 'hello world')
+    if (_body.tag !== 'body') {
+      _body = new CreateElement('body', {}, _body)
+    }
     const html = new CreateElement('html', {}, [
-      obj.head || CreateElement.createHead(),
-      obj.body || new CreateElement('body', {}, 'hello world'),
-      footer
+      head || CreateElement.defaultHead(),
+      _body
     ])
     return html
+  }
+  static defaultHead (title = 'hify') {
+    const _head = new CreateElement('head', {}, [
+      new CreateElement('title', {}, title),
+      new CreateElement('meta', { charset: 'utf-8' }),
+      new CreateElement('meta', {
+        name: 'viewport',
+        content: 'width=device-width,initial-scale=1'
+      })
+    ])
+    _head.addAssets(cdn.uikit)
+    return _head
   }
   static createHead (obj) {
     if (!obj) {
@@ -114,6 +188,20 @@ class CreateElement {
       }
     }
     return head
+  }
+  static asset (src) {
+    switch (true) {
+      case /css$/.test(src):
+        return new CreateElement('link', { rel: 'stylesheet', href: src })
+      case /js$/.test(src):
+        return new CreateElement('script', { src: src })
+      case typeof src === 'function':
+        return new CreateElement('script', {}, `(${src.toString()})()`)
+      case src instanceof CreateElement:
+        return src
+      default:
+        return new CreateElement('style', {}, String(src))
+    }
   }
 }
 

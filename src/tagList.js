@@ -193,10 +193,15 @@ module.exports = [
   // 9
   // Forms
   // <form> …… 入力・送信フォームを作る
+  ['form', []],
   // <fieldset> …… フォームの入力項目をグループ化する
+  ['fieldset', []],
   // <legend> …… フォームの入力項目グループにキャプションを付ける
+  ['legend', []],
   // <label> …… フォーム部品と項目名（ラベル）を関連付ける
+  ['label', []],
   // <input> …… フォームを構成する様々な入力部品を作成する
+  ['input', []],
   // <input type="hidden"> …… 画面上は表示されない隠しデータを指定する
   // <input type="text"> …… 一行テキストボックスを作成する
   // <input type="search"> …… 検索テキストの入力欄を作成するHTML5から追加
@@ -229,15 +234,25 @@ module.exports = [
   // <input autocomplete> …… 入力候補を提示して入力内容を自動補完するHTML5から追加
   // <input multiple> …… 複数の値を入力・選択できるようにするHTML5から追加
   // <button> …… ボタンを作成する
+  ['button', []],
   // <select> …… セレクトボックスを作成する
+  ['select', []],
   // <datalist> …… 入力候補となるデータリストを定義するHTML5から追加
+  ['datalist', []],
   // <optgroup> …… 選択肢をグループ化する
+  ['optgroup', []],
   // <option> …… セレクトボックスや入力候補リストの選択肢を指定する
+  ['option', []],
   // <textarea> …… 複数行のテキスト入力欄を作成する
+  ['textarea', []],
   // <keygen> …… フォーム送信時にキーを発行するHTML5から追加
+  ['keygen', []],
   // <output> …… 計算結果を示すHTML5から追加
+  ['output', []],
   // <progress> …… タスク完了までの進行状況を示すHTML5から追加
+  ['progress', []],
   // <meter> …… 規定範囲内の測定値を表すHTML5から追加
+  ['meter', []],
   // ▲ページ先頭へ
   // Interactive elements
   // <details> …… 備考や操作手段などの詳細情報を示すHTML5から追加

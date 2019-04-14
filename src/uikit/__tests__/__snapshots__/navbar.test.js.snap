@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uikit navbar test  1`] = `
+"<!DOCTYPE html>
+<html>
+  <head>
+    <title>hify</title>
+    <meta charset=\\"utf-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width,initial-scale=1\\">
+    <link rel=\\"stylesheet\\" href=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css\\">
+    <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js\\"></script>
+    <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js\\"></script>
+  </head>
+  <body>
+    <nav class=\\"uk-navbar-container\\" uk-navbar style=\\"background-color:#abc;\\">
+      <div class=\\"uk-navbar-left\\">
+        <a class=\\"uk-navbar-item uk-logo\\" href=\\"/\\">Hify</a>
+        <ul class=\\"uk-navbar-nav\\">
+          <li>
+            <a href=\\"#a\\">link a</a>
+          </li>
+          <li>
+            <a href=\\"#\\">link b</a>
+            <div class=\\"uk-navbar-dropdown\\">
+              <ul class=\\"uk-nav uk-navbar-dropdown-nav\\">
+                <li class=\\"uk-nav-header\\">label 1</li>
+                <li>
+                  <a href=\\"#b1-2\\">1-2</a>
+                </li>
+                <li>
+                  <a href=\\"#b1-3\\">1-3</a>
+                </li>
+                <li class=\\"uk-nav-divider\\"></li>
+                <li class=\\"uk-nav-header\\">label 2</li>
+                <li>
+                  <a href=\\"#b2-2\\">2-2</a>
+                </li>
+                <li>
+                  <a href=\\"#b2-3\\">2-3</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href=\\"#c\\">link c</a>
+          </li>
+        </ul>
+      </div>
+      <div class=\\"uk-navbar-right\\">
+        <ul class=\\"uk-navbar-nav\\">
+          <li>
+            <a href=\\"#a\\">link a</a>
+          </li>
+          <li>
+            <a href=\\"#\\">link b</a>
+            <div class=\\"uk-navbar-dropdown\\">
+              <ul class=\\"uk-nav uk-navbar-dropdown-nav\\">
+                <li class=\\"uk-nav-header\\">label 1</li>
+                <li>
+                  <a href=\\"#b1-2\\">1-2</a>
+                </li>
+                <li>
+                  <a href=\\"#b1-3\\">1-3</a>
+                </li>
+                <li class=\\"uk-nav-divider\\"></li>
+                <li class=\\"uk-nav-header\\">label 2</li>
+                <li>
+                  <a href=\\"#b2-2\\">2-2</a>
+                </li>
+                <li>
+                  <a href=\\"#b2-3\\">2-3</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href=\\"#c\\">link c</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+</html>"
+`;
