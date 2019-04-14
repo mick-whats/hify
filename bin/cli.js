@@ -17,6 +17,7 @@ cli
   .option('-s, --src [src]', 'source directory')
   .option('-d, --dest [dest]', 'destination directory')
   .option('-f, --force', 'Run without confirmation')
+  .option('-l, --silent', 'Do not output log')
   .action(async options => {
     await build(options)
   })
