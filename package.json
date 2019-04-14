@@ -1,6 +1,6 @@
 {
   "name": "hify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "jest": {
     "testMatch": [
       "**/?(*.)+(spec|test).[jt]s?(x)"
